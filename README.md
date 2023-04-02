@@ -10,6 +10,7 @@ How to Start project=>
 1) Clone project to local repository
 
 in terminal run these commands
+
 2) "npm i"
 3) "node seed.js"
 4) "npm start"
