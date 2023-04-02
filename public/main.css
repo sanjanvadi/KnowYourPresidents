@@ -1,0 +1,35 @@
+.card-deck{
+    justify-content: center;
+    margin-top: 50px;
+}
+.card-body{
+    text-align: center;
+}
+
+a{
+    color:#000000;
+    text-decoration:none;
+}
+
+a:hover{
+    color: #000000;
+    text-decoration: none;
+}
+a:visited{
+    color: #000000;
+}
+
+.info{
+    max-width: 500px;
+    margin-top: 50px;
+    margin-left: 500px;
+}
+
+.image{
+    
+    height:9.5cm;
+}
+.presidentName{
+    text-align: center;
+    font-weight:500;
+}

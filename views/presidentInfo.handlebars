@@ -1,0 +1,19 @@
+
+
+<div class="info">
+    <div>
+        <div class="card">
+            <h1 class="presidentName">{{head}}</h1>
+            <img class="card-img-top" src={{data.image}} alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{data.party}} party</h5>
+                <p class="card-text">{{data.description}}</p>
+                <p class="card-text">Presidency Term: {{data.term.startYear}} - {{data.term.endYear}}</p>
+                <p class="card-text">Terms Served: {{data.term.served}}</p>
+                <p class="card-text">Born: {{data.life.birthYear}}</p>
+                <p class="card-text">Death: {{data.life.deathYear}}</p>
+                <a href={{data.wikipedia}} rel='noopener noreferrer' target="_blank"><p class="card-text"><small class="text-muted">more info..</small></p>
+            </div>
+        </div>
+    </div>
+</div>
