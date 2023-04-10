@@ -4,15 +4,19 @@ const express = require('express');
 const app = express();
 const configRoutes = require('./routes');
 const exphbs = require('express-handlebars');
-
-// const rateLimit = require("express-rate-limit");
-// require("dotenv/config");
+const session = require('express-session')
+app.use(
+  session({
+    name: 'AuthSession',
+    secret: 'This is a secret',
+    saveUninitialized: false,
+    resave: false,
+    maxAge: 86400000 //1-day
+  })
+);
 
 const static = express.static(__dirname + '/public');
 app.use('/public', static);
-
-
-
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
