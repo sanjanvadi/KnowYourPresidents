@@ -4,6 +4,7 @@ const questionc = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
 const ansb = document.getElementById('ansb');
 const body = document.getElementById('body');
+const para = document.getElementById('finalScore');
 let scoreBuf = 0;
 let shuffledq, currentqindex;
 
@@ -32,15 +33,7 @@ const questions = [
           { text: 'Scientist' ,correct: false},
         ]
       },
-      {
-        question: 'When did George Bush serve as the President of the United States?',
-        answers: [
-          { text: '1981-1989' ,correct: false},
-          { text: '1989-1993' ,correct: true},
-          { text: '1993-2001' ,correct: false},
-          { text: '2001-2009' ,correct: false},
-        ]
-      },
+      
       {
         question: "What was George Bush's political affiliation?",
         answers: [
@@ -59,20 +52,9 @@ const questions = [
           { text: 'Green Party' ,correct: false},
         ]
       },
-      {
-        question: 'How many terms did Ronald Reagan serve as the President of the United States?',
-        answers: [ { text: '1' ,correct: false}, { text: '2' ,correct: true}, { text: '3' ,correct: false}, { text: '4' ,correct: false}, ]
-      },
+      
 
-      {
-        question: 'What political party did George W. Bush belong to?',
-        answers: [
-          { text: 'Democratic' ,correct: false},
-          { text: 'Independent' ,correct: false},
-          { text: 'Libertarian' ,correct: false},
-          { text: 'Republican' ,correct: true},
-        ]
-      },
+      
       {
         question: 'In which year did Barack Obama become the President of the United States?',
         answers: [
@@ -82,15 +64,7 @@ const questions = [
           { text: '2017' ,correct: false},
         ]
       },
-      {
-        question: "What was Barack Obama's political affiliation during his presidency?",
-        answers: [
-          { text: 'Republican' ,correct: false},
-          { text: 'Democrat' ,correct: true},
-          { text: 'Independent' ,correct: false},
-          { text: 'Libertarian' ,correct: false},
-        ]
-      },
+      
       {
         question: 'In which year did George W. Bush become the President of the United States?',
         answers: [
@@ -100,15 +74,7 @@ const questions = [
           { text: '2009' ,correct: false},
         ]
       },
-      {
-        question: 'From which state did Bill Clinton serve as the governor before becoming the President?',
-        answers: [
-          { text: 'New York' ,correct: false},
-          { text: 'Arkansas ' ,correct: true},
-          { text: 'California' ,correct: false},
-          { text: 'Texas' ,correct: false},
-        ]
-      },
+      
 
       {
         question: "What was Donald Trump's political party affiliation during his presidency?",
@@ -137,15 +103,7 @@ const questions = [
           { text: '10 years' ,correct: false},
         ]
     },
-    {
-        question: 'What state did Joe Biden represent in the United States Senate?',
-        answers: [
-          { text: 'Delaware' ,correct: true},
-          { text: 'New York' ,correct: false},
-          { text: 'California' ,correct: false},
-          { text: 'Texas' ,correct: false},
-        ]
-    }
+    
 ]
 
 startb.addEventListener('click', startquiz);
@@ -155,6 +113,7 @@ nextb.addEventListener('click', () => {
 })
 
 function startquiz(){
+    para.innerText='';
     startb.classList.add('hide');
     shuffledq = questions.sort(() => Math.random() - .5);
     currentqindex = 0;
@@ -170,14 +129,17 @@ function setnextq(){
 
 function showq(question){
     questionElement.innerText = question.question;
+    let btnLength = 0;
     question.answers.forEach(ans => {
         const button = document.createElement('button');
         button.innerText = ans.text
+        button.setAttribute('id',`btn${btnLength}`);
+        btnLength++;
         button.classList.add('btn');
         if(ans.correct){
             button.dataset.correct = ans.correct
         }
-        button.addEventListener('click', selectans);
+        button.addEventListener('click', selectans,{once:true});
         ansb.appendChild(button);
     });
 }
@@ -196,6 +158,14 @@ function selectans(e){
     if(correct){
         scoreBuf++;
     }
+    const btn0 = document.getElementById('btn0');
+    btn0.removeEventListener('click',selectans);
+    const btn1 = document.getElementById('btn1');
+    btn1.removeEventListener('click',selectans);
+    const btn2 = document.getElementById('btn2');
+    btn2.removeEventListener('click',selectans);
+    const btn3 = document.getElementById('btn3');
+    btn3.removeEventListener('click',selectans);
     setStatusClass(body, correct);
     Array.from(ansb.children).forEach(button => {
         setStatusClass(button, button.dataset.correct);
@@ -205,7 +175,8 @@ function selectans(e){
     } else {
         startb.innerText = 'Restart';
         startb.classList.remove('hide');
-        alert(`You scored ${scoreBuf} out of ${shuffledq.length}.`);
+        console.log(scoreBuf);
+        para.innerText = `You scored ${scoreBuf} out of ${shuffledq.length}.`;
         scoreBuf=0;
     }
 }  

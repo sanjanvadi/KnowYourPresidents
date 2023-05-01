@@ -4,6 +4,7 @@ const questionc = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
 const ansb = document.getElementById('ansb');
 const body = document.getElementById('body');
+const para = document.getElementById('finalScore');
 let scoreBuf = 0;
 let shuffledq, currentqindex;
 
@@ -17,26 +18,6 @@ const questions = [
             { text: 'Franklin D. Roosevelt', correct: false}         
         ]
     },
-    
-    {
-        question: 'What was George Washington`s political party during his presidency?',
-        answers: [
-            { text: 'Democratic-Republican', correct: false},
-            { text: 'Federalist', correct: true},
-            { text: 'Whig', correct: false},
-            { text: 'Libertarian', correct: false}         
-        ]
-    },
-
-    {
-        question: 'In which years did George Washington serve as the President of the United States?',
-        answers: [
-            { text: '1797-1801', correct: false},
-            { text: '1789-1793', correct: false},
-            { text: '1801-1805', correct: false},
-            { text: '1789-1797', correct: true}         
-        ]
-    },
 
     {
         question: 'What was John Adams` occupation before becoming the President of the United States?',
@@ -48,15 +29,6 @@ const questions = [
         ]
     },
 
-    {
-        question: 'During which years did John Adams serve as the second President of the United States?',
-        answers: [
-          { text: '1797-1801' ,correct: true},
-          { text: '1789-1793' , correct: false},
-          { text: '1801-1805' , correct: false},
-          { text: '1805-1809' , correct: false}
-        ]
-    },
 
     {
         question: 'Which occupation did Thomas Jefferson not have in addition to being a politician?',
@@ -65,16 +37,6 @@ const questions = [
             { text: 'Soldier' , correct: false},
             { text: 'Lawyer', correct: true },
             { text: 'Doctor', correct: false}
-        ]
-    },
-
-    {
-        question: 'During which years did Thomas Jefferson serve as the President of the United States?',
-        answers: [
-          { text: '1789-1793' ,correct: false},
-          { text: '1797-1801' ,correct: false},
-          { text: '1801-1809' ,correct: true},
-          { text: '1805-1809' ,correct: false},
         ]
     },
 
@@ -95,16 +57,6 @@ const questions = [
           { text: '1809-1817' ,correct: true},
           { text: '1817-1825' ,correct: false},
           { text: '1825-1829' ,correct: false},
-        ]
-    },
-    
-    {
-        question: 'Which political party did James Monroe belong to during his presidency?',
-        answers: [
-          { text: 'Federalist' ,correct: false},
-          { text: 'Whig' ,correct: false},
-          { text: 'Democratic-Republican' ,correct: true},
-          { text: 'Libertarian' ,correct: false},
         ]
     },
 
@@ -128,15 +80,6 @@ const questions = [
         ]
     },
 
-    {
-        question: 'Which political party did John Quincy Adams belong to during his presidency?',
-        answers: [
-          { text: 'Federalist' ,correct: false},
-          { text: 'Whig' ,correct: false},
-          { text: 'Democratic-Republican' ,correct: true},
-          { text: 'Libertarian' ,correct: false},
-        ]
-    },
 
     {
         question: 'Who was the seventh president of the United States?',
@@ -149,29 +92,10 @@ const questions = [
     },
 
     {
-        question: "What is Andrew Jackson's background before he was elected as president?",
-        answers: [
-          { text: 'He was a farmer' ,correct: false},
-          { text: 'He was a doctor' ,correct: false},
-          { text: 'He was a lawyer, general, and statesman' ,correct: true},
-          { text: 'He was a musician' ,correct: false},
-        ]
-    },
-
-    {
         question: 'How many years did Martin Van Buren serve as president of the United States?',
         answers: [ { text: '1' ,correct: false}, { text: '2' ,correct: false}, { text: '4' ,correct: true}, { text: '8' ,correct: false}, ]
     },
 
-    {
-        question: 'What state did Martin Van Buren serve as governor before becoming president?',
-        answers: [
-          { text: 'New York' ,correct: true},
-          { text: 'Virginia' ,correct: false},
-          { text: 'Massachusetts' ,correct: false},
-          { text: 'Pennsylvania' ,correct: false},
-        ]
-    },
 
     {
         question: "How long was William Henry Harrison's presidency?",
@@ -182,15 +106,6 @@ const questions = [
           { text: '100 days' ,correct: false},
         ]
     },
-    {
-        question: "What was William Henry Harrison's profession before he became President?",
-        answers: [
-          { text: 'Military officer' ,correct: true},
-          { text: 'Lawyer' ,correct: false},
-          { text: 'Farmer' ,correct: false},
-          { text: 'Physician' ,correct: false},
-        ]
-    }
 ]
 
 startb.addEventListener('click', startquiz);
@@ -200,6 +115,7 @@ nextb.addEventListener('click', () => {
 })
 
 function startquiz(){
+    para.innerText='';
     startb.classList.add('hide');
     shuffledq = questions.sort(() => Math.random() - .5);
     currentqindex = 0;
@@ -215,14 +131,17 @@ function setnextq(){
 
 function showq(question){
     questionElement.innerText = question.question;
+    let btnLength = 0;
     question.answers.forEach(ans => {
         const button = document.createElement('button');
         button.innerText = ans.text
+        button.setAttribute('id',`btn${btnLength}`);
+        btnLength++;
         button.classList.add('btn');
         if(ans.correct){
             button.dataset.correct = ans.correct
         }
-        button.addEventListener('click', selectans);
+        button.addEventListener('click', selectans,{once:true});
         ansb.appendChild(button);
     });
 }
@@ -241,6 +160,14 @@ function selectans(e){
     if(correct){
         scoreBuf++;
     }
+    const btn0 = document.getElementById('btn0');
+    btn0.removeEventListener('click',selectans);
+    const btn1 = document.getElementById('btn1');
+    btn1.removeEventListener('click',selectans);
+    const btn2 = document.getElementById('btn2');
+    btn2.removeEventListener('click',selectans);
+    const btn3 = document.getElementById('btn3');
+    btn3.removeEventListener('click',selectans);
     setStatusClass(body, correct);
     Array.from(ansb.children).forEach(button => {
         setStatusClass(button, button.dataset.correct);
@@ -251,7 +178,7 @@ function selectans(e){
         startb.innerText = 'Restart';
         startb.classList.remove('hide');
         console.log(scoreBuf);
-        alert(`You scored ${scoreBuf} out of ${shuffledq.length}.`);
+        para.innerText = `You scored ${scoreBuf} out of ${shuffledq.length}.`;
         scoreBuf=0;
     }
 }  

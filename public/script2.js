@@ -4,6 +4,7 @@ const questionc = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
 const ansb = document.getElementById('ansb');
 const body = document.getElementById('body');
+const para = document.getElementById('finalScore');
 let scoreBuf = 0;
 let shuffledq, currentqindex;
 
@@ -17,16 +18,7 @@ const questions = [
           { text: 'Democratic' ,correct: false},
         ]
     },
-    {
-        question: 'Which political party did James K. Polk belong to?',
-        answers: [
-          { text: 'Republican' ,correct: false},
-          { text: 'Whig' ,correct: false},
-          { text: 'Democrat' ,correct: true},
-          { text: 'Libertarian' ,correct: false},
-        ]
-    },
-
+    
     {
         question: 'How long did James K. Polk serve as the President of the United States?',
         answers: [
@@ -45,15 +37,7 @@ const questions = [
           { text: 'Zachary Taylor' ,correct: true},
         ]
     },
-    {
-        question: 'Which president served only one year out of their four-year term?',
-        answers: [
-          { text: 'Andrew Jackson' ,correct: false},
-          { text: 'William Henry Harrison' ,correct: false},
-          { text: 'John Tyler' ,correct: false},
-          { text: 'Zachary Taylor' ,correct: true},
-        ]
-    },
+    
     {
         question: "What was Millard Fillmore's political party affiliation during his presidency?",
         answers: [
@@ -63,15 +47,7 @@ const questions = [
           { text: 'Independent' ,correct: false},
         ]
     },
-    {
-        question: 'How many years did Millard Fillmore serve as the President of the United States?',
-        answers: [
-          { text: '0.5 years' ,correct: false},
-          { text: '1 year' ,correct: false},
-          { text: '2 years and 6 months' ,correct: false},
-          { text: '3 years' ,correct: true},
-        ]
-    },
+    
     {
         question: "What was Franklin Pierce's political party?",
         answers: [
@@ -81,33 +57,7 @@ const questions = [
           { text: 'Independent' ,correct: false},
         ]
     },
-    {
-        question: 'When did James Buchanan serve as the president of the United States?',
-        answers: [
-          { text: '1849-1850' ,correct: false},
-          { text: '1850-1853' ,correct: false},
-          { text: '1853-1857' ,correct: false},
-          { text: '1857-1861' ,correct: true},
-        ]
-    },
-    {
-        question: 'Which political party did James Buchanan belong to?',
-        answers: [
-          { text: 'Republican' ,correct: false},
-          { text: 'Democrat' ,correct: true},
-          { text: 'Whig' ,correct: false},
-          { text: 'Libertarian' ,correct: false},
-        ]
-    },
-    {
-        question: 'Which political party did Abraham Lincoln belong to?',
-        answers: [
-          { text: 'Democrat' ,correct: false},
-          { text: 'Whig' ,correct: false},
-          { text: 'Republican ' ,correct: true},
-          { text: 'Federalist' ,correct: false},
-        ]
-    },
+
 
     {
         question: 'How long did Abraham Lincoln serve as the President of the United States?',
@@ -127,24 +77,8 @@ const questions = [
           { text: 'Franklin Pierce' ,correct: false},
         ]
     },
-    {
-        question: 'Which party did Andrew Johnson belong to during his presidency?',
-        answers: [
-          { text: 'Republican' ,correct: false},
-          { text: 'Democrat' ,correct: false},
-          { text: 'National Union' ,correct: true},
-          { text: 'Whig' ,correct: false},
-        ]
-    },
-    {
-        question: 'What political party did Ulysses S. Grant belong to?',
-        answers: [
-          { text: 'Democrat' ,correct: false},
-          { text: 'Whig' ,correct: false},
-          { text: 'Republican ' ,correct: true},
-          { text: 'National Union' ,correct: false},
-        ]
-    },
+    
+    
     {
         question: "Prior to becoming President, what was Ulysses S. Grant's occupation?",
         answers: [
@@ -156,15 +90,6 @@ const questions = [
     },
 
     {
-        question: "What was Rutherford B. Hayes' political party affiliation?",
-        answers: [
-          { text: 'Democratic' ,correct: false},
-          { text: 'Republican' ,correct: true},
-          { text: 'Whig' ,correct: false},
-          { text: 'National Union' ,correct: false},
-        ]
-      },
-      {
         question: 'Which state did Rutherford B. Hayes govern before becoming president?',
         answers: [
           { text: 'Ohio' ,correct: true},
@@ -191,6 +116,7 @@ nextb.addEventListener('click', () => {
 })
 
 function startquiz(){
+    para.innerText='';
     startb.classList.add('hide');
     shuffledq = questions.sort(() => Math.random() - .5);
     currentqindex = 0;
@@ -206,14 +132,17 @@ function setnextq(){
 
 function showq(question){
     questionElement.innerText = question.question;
+    let btnLength = 0;
     question.answers.forEach(ans => {
         const button = document.createElement('button');
         button.innerText = ans.text
+        button.setAttribute('id',`btn${btnLength}`);
+        btnLength++;
         button.classList.add('btn');
         if(ans.correct){
             button.dataset.correct = ans.correct
         }
-        button.addEventListener('click', selectans);
+        button.addEventListener('click', selectans,{once:true});
         ansb.appendChild(button);
     });
 }
@@ -232,6 +161,14 @@ function selectans(e){
     if(correct){
         scoreBuf++;
     }
+    const btn0 = document.getElementById('btn0');
+    btn0.removeEventListener('click',selectans);
+    const btn1 = document.getElementById('btn1');
+    btn1.removeEventListener('click',selectans);
+    const btn2 = document.getElementById('btn2');
+    btn2.removeEventListener('click',selectans);
+    const btn3 = document.getElementById('btn3');
+    btn3.removeEventListener('click',selectans);
     setStatusClass(body, correct);
     Array.from(ansb.children).forEach(button => {
         setStatusClass(button, button.dataset.correct);
@@ -241,7 +178,8 @@ function selectans(e){
     } else {
         startb.innerText = 'Restart';
         startb.classList.remove('hide');
-        alert(`You scored ${scoreBuf} out of ${shuffledq.length}.`);
+        console.log(scoreBuf);
+        para.innerText = `You scored ${scoreBuf} out of ${shuffledq.length}.`;
         scoreBuf=0;
     }
 }  
