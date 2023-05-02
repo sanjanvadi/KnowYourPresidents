@@ -4,6 +4,7 @@
 }
 .card-body{
     text-align: center;
+    /* background-color: #c0daf4; */
 }
 
 a{
@@ -22,7 +23,10 @@ a:visited{
 .info{
     max-width: 500px;
     margin-top: 50px;
-    margin-left: 500px;
+    margin-left: 550px;
+}
+.backLink{
+    margin-left: 180px;
 }
 
 .image{
@@ -35,7 +39,7 @@ a:visited{
 }
 
 .navbar{
-    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%); 
+    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #0077b7 100%); 
     /* background-color: #1a6ec7; */
 }
 /* -------------------- */
@@ -53,7 +57,7 @@ a:visited{
 
 body{
     
-    background-color: #77abe3;
+    background-color: #c0daf4;
 }
 
 .body{
@@ -79,20 +83,27 @@ body{
 .container{
     width: 500px;
     max-width: 80%;
-    background-color: white;
+    background-color: #c0daf4;
     border-radius: 5px;
-    padding: 10px;
+    padding: 40px;
     box-shadow: 0 0 10px 2px;
 }
 
+.centerPara{
+    margin-left: 580px;
+    margin-top: 50px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: large;
+}
+
 .containerBtn{
-    margin: 100px auto 100px;
+    margin: 50px auto 100px;
     width: 30%;
     height: 80%;
     max-width: 80%;
-    background-color: white;
+    background-color: #c0daf4;
     border-radius: 5px;
-    padding: 10px;
+    padding: 30px;
     box-shadow: 0 0 10px 2px;
     display: flex;
     justify-content: center;
@@ -121,7 +132,7 @@ body{
     
   align-items: center;
   appearance: none;
-  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #0077b7 100%);
   border: 0;
   border-radius: 6px;
   box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
@@ -183,7 +194,7 @@ body{
 .startb, .nextb, .backb{
     align-items: center;
     appearance: none;
-    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #0077b7 100%);
     border: 0;
     border-radius: 6px;
     box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
@@ -257,12 +268,15 @@ body{
 
 .bottom{
     position: absolute;
-    bottom: 100px;
-
+    bottom: 10px;
 }
-
-#finalScore{
-    margin-left: 750px;
+#question{
     font-weight: bold;
+}
+#finalScore{
+    margin-left: 650px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: larger;
 }
