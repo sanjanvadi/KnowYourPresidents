@@ -127,7 +127,10 @@ body{
     outline: none;
     align-items: center;
 }
-
+.error{
+    color: red;
+    margin-left: 115px;
+}
 .btnq{
     
   align-items: center;
